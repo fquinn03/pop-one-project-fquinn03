@@ -37,6 +37,14 @@ def get_board():
     return board
 
 def string_to_location(s):
+    rows = {"A":0,"B":1, "C":2, "D":3, "E":4}
+    columns = {"0":0, "1":1,"2":2, "3":3, "4":4}
+    try:
+        loc_row = rows[s[0]]
+        loc_col = columns[s[1]]
+        return (loc_row, loc_col)
+    except KeyError:
+        raise ValueError ("That location is not on the board")
     """Given a two-character string (such as 'A5'), returns the designated
        location as a 2-tuple (such as (0, 4)).
        The function should raise ValueError exception if the input

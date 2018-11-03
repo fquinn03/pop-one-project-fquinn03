@@ -9,14 +9,6 @@ M = 'M'
 R = 'R'
 _ = '-'
 
-global board
-board = [[R, R, R, R, M],
-        [R, R, R, R, R],
-        [R, R, M, R, R],
-        [R, R, R, R, R],
-        [M, R, R, R, R]]
-
-global board1
 board1 =  [[_, _, _, M, _],
             [_, _, R, M, _],
             [_, R, M, R, _],
@@ -30,9 +22,7 @@ def test_create_board():
     #eventually add at least two more test cases
 
 def test_set_board():
-    get_board()
     set_board(board1)
-    get_board()
     assert at((0,0)) == _
     assert at((1,2)) == R
     assert at((1,3)) == M
