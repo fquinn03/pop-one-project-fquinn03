@@ -30,6 +30,7 @@ def set_board(new_board):
     """Replaces the global board with new_board."""
     global board
     board = new_board
+    return board
 
 def get_board():
     """Just returns the board. Possibly useful for unit tests."""
@@ -52,6 +53,7 @@ def location_to_string(location):
     return "A1"
 
 def at(location):
+    get_board()
     """Returns the contents of the board at the given location.
     You can assume that input will always be in correct range."""
     return board[location[0]][location[1]]
