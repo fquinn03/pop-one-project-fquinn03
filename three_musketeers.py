@@ -37,6 +37,12 @@ def get_board():
     return board
 
 def string_to_location(s):
+    """Given a two-character string (such as 'A5'), returns the designated
+       location as a 2-tuple (such as (0, 4)).
+       The function should raise ValueError exception if the input
+       is outside of the correct range (between 'A' and 'E' for s[0] and
+       between '1' and '5' for s[1]
+       """
     rows = {"A":0,"B":1, "C":2, "D":3, "E":4}
     columns = {"0":0, "1":1,"2":2, "3":3, "4":4}
     try:
@@ -45,20 +51,20 @@ def string_to_location(s):
         return (loc_row, loc_col)
     except KeyError:
         raise ValueError ("That location is not on the board")
-    """Given a two-character string (such as 'A5'), returns the designated
-       location as a 2-tuple (such as (0, 4)).
-       The function should raise ValueError exception if the input
-       is outside of the correct range (between 'A' and 'E' for s[0] and
-       between '1' and '5' for s[1]
-       """
-    return (0,0)
 
 def location_to_string(location):
     """Returns the string representation of a location.
     Similarly to the previous function, this function should raise
     ValueError exception if the input is outside of the correct range
     """
-    return "A1"
+    rows = {0:"A",1:"B", 2:"C", 3:"D", 4:"E"}
+    columns = {0:"0", 1:"1",2:"2", 3:"3", 4:"4"}
+    try:
+        loc_row = rows[location[0]]
+        loc_col = columns[location[1]]
+        return loc_row + loc_col
+    except KeyError:
+        raise ValueError ("That location is not on the board")
 
 def at(location):
     get_board()
@@ -68,7 +74,11 @@ def at(location):
 
 def all_locations():
     """Returns a list of all 25 locations on the board."""
-    return [[],[],[],[],[]]
+    all_locations = [[],[],[],[],[]]
+    for i in range(5):
+        for j in range(5):
+            all_locations[i].append((i,j))
+    return all_locations
 
 def adjacent_location(location, direction):
     """Return the location next to the given one, in the given direction.

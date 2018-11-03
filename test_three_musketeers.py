@@ -46,7 +46,7 @@ def test_string_to_location():
 
 def test_location_to_string():
     # replace with tests
-    assert location_to_string((1,0))=="B1"
+    assert location_to_string((1,1))=="B1"
 
 def test_at():
     assert at((2,2)) == M
