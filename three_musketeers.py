@@ -20,11 +20,11 @@ def create_board():
        Cardinal Richleau's men, and '-' denotes an empty space."""
     m = 'M'
     r = 'R'
-    board = [ [r, r, r, r, m],
+    board = [[r, r, r, r, m],
               [r, r, r, r, r],
               [r, r, m, r, r],
               [r, r, r, r, r],
-              [m, r, r, r, r] ]
+              [m, r, r, r, r]]
 
 def set_board(new_board):
     """Replaces the global board with new_board."""
@@ -54,7 +54,7 @@ def location_to_string(location):
 def at(location):
     """Returns the contents of the board at the given location.
     You can assume that input will always be in correct range."""
-    return "R"
+    return board[location[0]][location[1]]
 
 def all_locations():
     """Returns a list of all 25 locations on the board."""

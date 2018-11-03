@@ -21,14 +21,13 @@ def test_create_board():
     assert at((0,4)) == M
     #eventually add at least two more test cases
 
-def test_set_board():
-    set_board(board1)
+def test_set_board(board1):
     assert at((0,0)) == _
     assert at((1,2)) == R
     assert at((1,3)) == M
     #eventually add some board2 and at least 3 tests with it
 
-def test_get_board(board1):
+def test_get_board():
     assert get_board(board1) == [ [_, _, _, M, _],
                 [_, _, R, M, _],
                 [_, R, M, R, _],
