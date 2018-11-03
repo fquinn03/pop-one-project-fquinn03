@@ -54,7 +54,7 @@ def location_to_string(location):
 def at(location):
     """Returns the contents of the board at the given location.
     You can assume that input will always be in correct range."""
-    return board[location[0]][location[1]]
+    return "R"
 
 def all_locations():
     """Returns a list of all 25 locations on the board."""
@@ -106,7 +106,7 @@ def possible_moves_from(location):
        for the player at location to move. If there is no player at
        location, returns the empty list, [].
        You can assume that input will always be in correct range."""
-    
+
 
 def is_legal_location(location):
     """Tests if the location is legal on a 5x5 board.
