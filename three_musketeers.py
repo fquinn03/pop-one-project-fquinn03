@@ -140,19 +140,19 @@ def can_move_piece_at(location):
     for i in range(len(directions)):
         if is_legal_move(location, directions[i]):
             return True
-            break 
+            break
         else:
             return False
-
-
-
 
 def has_some_legal_move_somewhere(who):
     """Tests whether a legal move exists for player "who" (which must
     be either 'M' or 'R'). Does not provide any information on where
     the legal move is.
     You can assume that input will always be in correct range."""
-    return False
+    for location in all_locations():
+        for i in range(5):
+            if at(location[i]) == who:
+                return can_move_piece_at(location[i])
 
 def possible_moves_from(location):
     return "left"
