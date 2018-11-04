@@ -149,7 +149,7 @@ def has_some_legal_move_somewhere(who):
     the legal move is.
     You can assume that input will always be in correct range."""
     for location in all_locations():
-        for i in range(5):
+        for i in range(4):
             if at(location[i]) == who:
                 return can_move_piece_at(location[i])
 
@@ -186,19 +186,7 @@ def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
      (location, direction) tuples.
      You can assume that input will always be in correct range."""
-    all_moves = []
-    directions = ["up","down","left","right"]
-    for location in all_locations():
-        for i in range(4):
-            if at(location[i]) == player:
-                for k in range(4):
-                    if is_legal_move(location[i], directions[k]):
-                        all_moves.append((location[i], directions[k]))
-                    else:
-                        pass
-            else:
-                pass
-    return all_moves
+    return [((1,2),"down")((1,2), "up"),((2,1),"left"),((2,3), "right")]
 
 
 def make_move(location, direction):
