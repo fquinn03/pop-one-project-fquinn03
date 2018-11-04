@@ -50,7 +50,7 @@ def string_to_location(s):
         loc_col = columns[s[1]]
         return (loc_row, loc_col)
     except KeyError:
-        raise ValueError ("That location is not on the board")
+        raise ValueError ("That location is not on the board.")
 
 def location_to_string(location):
     """Returns the string representation of a location.
@@ -64,7 +64,7 @@ def location_to_string(location):
         loc_col = columns[location[1]]
         return loc_row + loc_col
     except KeyError:
-        raise ValueError ("That location is not on the board")
+        raise ValueError ("That location is not on the board.")
 
 def at(location):
     get_board()
@@ -85,19 +85,41 @@ def adjacent_location(location, direction):
        Does not check if the location returned is legal on a 5x5 board.
        You can assume that input will always be in correct range."""
     (row, column) = location
-    return (0,0)
+    if direction == 'up':
+        row -=1
+    elif direction == 'down':
+        row +=1
+    elif direction == 'left':
+        column -=1
+    else:
+        column +=1
+    return (row,column)
 
 def is_legal_move_by_musketeer(location, direction):
     """Tests if the Musketeer at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'M'"""
-    return False
+    if at(location) == 'M':
+        new_location = adjacent_location(location, direction)
+        if at(new_location) == "R":
+            return True
+        else:
+            return False
+    else:
+        raise ValueError ("You have to move a musketeer piece")
 
 def is_legal_move_by_enemy(location, direction):
     """Tests if the enemy at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'R'"""
-    return False
+    if at(location) == 'R':
+        new_location = adjacent_location(location, direction)
+        if at(new_location) == "-":
+            return True
+        else:
+            return False
+    else:
+        raise ValueError ("You have to move an Enemy piece")
 
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
@@ -111,7 +133,6 @@ def can_move_piece_at(location):
     You can assume that input will always be in correct range."""
     return False
 
-
 def has_some_legal_move_somewhere(who):
     """Tests whether a legal move exists for player "who" (which must
     be either 'M' or 'R'). Does not provide any information on where
@@ -119,14 +140,12 @@ def has_some_legal_move_somewhere(who):
     You can assume that input will always be in correct range."""
     return False
 
-
 def possible_moves_from(location):
     return "left"
     """Returns a list of directions ('left', etc.) in which it is legal
        for the player at location to move. If there is no player at
        location, returns the empty list, [].
        You can assume that input will always be in correct range."""
-
 
 def is_legal_location(location):
     """Tests if the location is legal on a 5x5 board.
