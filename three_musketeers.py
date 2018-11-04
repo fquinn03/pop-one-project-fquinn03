@@ -125,7 +125,13 @@ def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
     You can assume that input will always be in correct range."""
-    return True
+    if at(location) == "M":
+        return is_legal_move_by_musketeer(location, direction)
+    elif at(location) == "R":
+        return is_legal_move_by_enemy(location, direction)
+    else:
+        return False
+
 
 def can_move_piece_at(location):
     """Tests whether the player at the location has at least one move available.
