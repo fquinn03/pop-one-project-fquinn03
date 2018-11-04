@@ -67,7 +67,6 @@ def location_to_string(location):
         raise ValueError ("That location is not on the board.")
 
 def at(location):
-    get_board()
     """Returns the contents of the board at the given location.
     You can assume that input will always be in correct range."""
     return board[location[0]][location[1]]
@@ -185,9 +184,21 @@ def is_within_board(location, direction):
 
 def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
-       (location, direction) tuples.
-       You can assume that input will always be in correct range."""
-    return ((1,1), "right")
+     (location, direction) tuples.
+     You can assume that input will always be in correct range."""
+    all_moves = []
+    directions = ["up","down","left","right"]
+    for location in all_locations():
+        for i in range(4):
+            if at(location[i]) == player:
+                for k in range(4):
+                    if is_legal_move(location[i], directions[k]):
+                        all_moves.append((location[i], directions[k]))
+                    else:
+                        pass
+            else:
+                pass
+    return all_moves
 
 
 def make_move(location, direction):
