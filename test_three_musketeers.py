@@ -83,7 +83,7 @@ def test_has_some_legal_move_somewhere():
 
 def test_possible_moves_from():
     set_board(board1)
-    assert possible_moves_from((2,2)) == [((2,1),"left"),((2,3),"right"),((1,2),"up")]
+    assert possible_moves_from((2,1)) == ["up","left"]
 
 def test_is_legal_location():
     assert is_legal_location((2,2)) == True

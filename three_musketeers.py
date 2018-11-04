@@ -159,7 +159,15 @@ def possible_moves_from(location):
        for the player at location to move. If there is no player at
        location, returns the empty list, [].
        You can assume that input will always be in correct range."""
-    return ["left"]
+    directions = ["up","down","left","right"]
+    moves = []
+    if at(location) != "-":
+        for i in range(len(directions)):
+            if is_legal_move(location, directions[i]):
+                moves.append(directions[i])
+        return moves
+    else:
+        return moves
 
 def is_legal_location(location):
     """Tests if the location is legal on a 5x5 board.
@@ -179,7 +187,8 @@ def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
        (location, direction) tuples.
        You can assume that input will always be in correct range."""
-    return (0,0)
+    return ((1,1), "right")
+
 
 def make_move(location, direction):
     """Moves the piece in location in the indicated direction.
