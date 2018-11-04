@@ -155,16 +155,20 @@ def has_some_legal_move_somewhere(who):
                 return can_move_piece_at(location[i])
 
 def possible_moves_from(location):
-    return "left"
     """Returns a list of directions ('left', etc.) in which it is legal
        for the player at location to move. If there is no player at
        location, returns the empty list, [].
        You can assume that input will always be in correct range."""
+    return ["left"]
 
 def is_legal_location(location):
     """Tests if the location is legal on a 5x5 board.
     You can assume that input will always be in correct range."""
-    return False
+    (row, column) = location
+    if row >= 0 and row <=4 and column >=0 and column <=4:
+        return True
+    else:
+        return False
 
 def is_within_board(location, direction):
     """Tests if the move stays within the boundaries of the board.
