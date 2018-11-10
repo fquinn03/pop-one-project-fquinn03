@@ -93,7 +93,7 @@ def test_is_within_board():
 
 def test_all_possible_moves_for():
     set_board(board1)
-    assert all_possible_moves_for("M")==[((1,2),"left")((1,2), "up"),((2,1),"left"),((2,3), "right")]
+    assert all_possible_moves_for("M")==[((1, 3), 'down'), ((1, 3), 'left'), ((2, 2), 'up'), ((2, 2), 'left'), ((2, 2), 'right')]
 
 def test_make_move():
     assert make_move((2,2),"left") == (2,1)

@@ -106,6 +106,7 @@ def is_legal_move_by_musketeer(location, direction):
             return False
     else:
         raise ValueError ("You have to move a musketeer piece")
+        pass
 
 def is_legal_move_by_enemy(location, direction):
     """Tests if the enemy at the location can move in the direction.
@@ -119,7 +120,8 @@ def is_legal_move_by_enemy(location, direction):
             return False
     else:
         raise ValueError ("You have to move an Enemy piece")
-
+        pass
+        
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
@@ -186,8 +188,14 @@ def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
      (location, direction) tuples.
      You can assume that input will always be in correct range."""
-    return [((1,2),"down")((1,2), "up"),((2,1),"left"),((2,3), "right")]
-
+    all_possible_moves = []
+    for location in all_locations():
+        for i in range(4):
+            if at(location[i]) == player:
+                for move in possible_moves_from(location[i]):
+                    if is_within_board(location[i],move):
+                        all_possible_moves.append((location[i],move))
+    return all_possible_moves
 
 def make_move(location, direction):
     """Moves the piece in location in the indicated direction.
