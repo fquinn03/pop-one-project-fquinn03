@@ -121,7 +121,7 @@ def is_legal_move_by_enemy(location, direction):
     else:
         raise ValueError ("You have to move an Enemy piece")
         pass
-        
+
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
@@ -201,7 +201,12 @@ def make_move(location, direction):
     """Moves the piece in location in the indicated direction.
     Doesn't check if the move is legal. You can assume that input will always
     be in correct range."""
-    return (0,0)
+    player = at(location)
+    if (location,direction) in all_possible_moves_for(player):
+        (row, column) = adjacent_location(location,direction)
+        board[location[0]][location[1]] = "-"
+        board[row][column] = player
+    return get_board()
 
 def choose_computer_move(who):
     """The computer chooses a move for a Musketeer (who = 'M') or an

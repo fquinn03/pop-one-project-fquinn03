@@ -96,7 +96,12 @@ def test_all_possible_moves_for():
     assert all_possible_moves_for("M")==[((1, 3), 'down'), ((1, 3), 'left'), ((2, 2), 'up'), ((2, 2), 'left'), ((2, 2), 'right')]
 
 def test_make_move():
-    assert make_move((2,2),"left") == (2,1)
+    set_board(board1)
+    assert make_move((2,2),"left") == [ [_, _, _, M, _],
+                                        [_, _, R, M, _],
+                                        [_, M, _, R, _],
+                                        [_, R, _, _, _],
+                                        [_, _, _, R, _]]
 
 def test_choose_computer_move():
     assert choose_computer_move(R) == ((2,1),"up")
