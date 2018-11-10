@@ -11,7 +11,6 @@
 #
 # For brevity, Cardinal Richleau's men are referred to as "enemy".
 # 'pass' is a no-nothing Python statement. Replace it with actual code.
-
 def create_board():
     global board
     """Creates the initial Three Musketeers board and makes it globally
@@ -51,6 +50,7 @@ def string_to_location(s):
         return (loc_row, loc_col)
     except KeyError:
         raise ValueError ("That location is not on the board.")
+        pass
 
 def location_to_string(location):
     """Returns the string representation of a location.
@@ -65,6 +65,7 @@ def location_to_string(location):
         return loc_row + loc_col
     except KeyError:
         raise ValueError ("That location is not on the board.")
+        pass
 
 def at(location):
     """Returns the contents of the board at the given location.
@@ -151,7 +152,7 @@ def has_some_legal_move_somewhere(who):
     the legal move is.
     You can assume that input will always be in correct range."""
     for location in all_locations():
-        for i in range(4):
+        for i in range(5):
             if at(location[i]) == who:
                 return can_move_piece_at(location[i])
 
@@ -190,7 +191,7 @@ def all_possible_moves_for(player):
      You can assume that input will always be in correct range."""
     all_possible_moves = []
     for location in all_locations():
-        for i in range(4):
+        for i in range(5):
             if at(location[i]) == player:
                 for move in possible_moves_from(location[i]):
                     if is_within_board(location[i],move):
@@ -210,10 +211,14 @@ def make_move(location, direction):
 
 def choose_computer_move(who):
     """The computer chooses a move for a Musketeer (who = 'M') or an
-       enemy (who = 'R') and returns it as the tuple (location, direction),
-       where a location is a (row, column) tuple as usual.
-       You can assume that input will always be in correct range."""
-    return ((2,2),"right")
+    enemy (who = 'R') and returns it as the tuple (location, direction),
+    where a location is a (row, column) tuple as usual.
+    You can assume that input will always be in correct range."""
+    for move in all_possible_moves_for(who):
+        move = all_possible_moves[0]
+    return (move)
+
+
 
 def is_enemy_win():
     """Returns True if all 3 Musketeers are in the same row or column."""

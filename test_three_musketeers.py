@@ -104,7 +104,8 @@ def test_make_move():
                                         [_, _, _, R, _]]
 
 def test_choose_computer_move():
-    assert choose_computer_move(R) == ((2,1),"up")
+    assert choose_computer_move(R) == ((1,2),"up")
 
 def test_is_enemy_win():
-    assert is_enemy_win() == True
+    set_board(board1)
+    assert is_enemy_win() == False
