@@ -75,12 +75,10 @@ def test_location_to_string():
 
 def test_at():
     set_board(board1)
-    get_board()
     assert at((2,2)) == M
     assert at((1,2)) == R
     assert at((0,0)) == _
     set_board(board2)
-    get_board()
     assert at((2,2)) == R
     assert at((0,3)) == M
     assert at((0,0)) == _
@@ -91,22 +89,40 @@ def test_all_locations():
 
 def test_adjacent_location():
     assert adjacent_location((2,0), "right") == (2,1)
+    assert adjacent_location((4,4), "down") == (5,4)
+    assert adjacent_location((0,1), "up") == (-1,1)
+    assert adjacent_location((3,1), "right") == (3,2)
+    assert adjacent_location((3,4), "right") == (3,5)
 
 def test_is_legal_move_by_musketeer():
     set_board(board1)
     assert is_legal_move_by_musketeer((2,2), "up") == True
+    assert is_legal_move_by_musketeer((0,4),"up") == False
+    with pytest.raises(ValueError):
+        assert is_legal_move_by_musketeer((3,1),"up")
+
 
 def test_is_legal_move_by_enemy():
     set_board(board1)
     assert is_legal_move_by_enemy((1,2),"up") == True
+    assert is_legal_move_by_enemy((4,3),"down") == False
+    with pytest.raises(ValueError):
+            assert is_legal_move_by_enemy((2,2),"up")
+
 
 def test_is_legal_move():
     set_board(board1)
     assert is_legal_move((1,2),"down") == False
+    assert is_legal_move((2,2), "up") == True
+    assert is_legal_move((0,4),"up") == False
+    assert is_legal_move((1,2),"up") == True
+    assert is_legal_move((4,3),"down") == False
 
 def test_can_move_piece_at():
     set_board(board1)
     assert can_move_piece_at((2,2)) == True
+    assert can_move_piece_at((3,2)) == False
+    assert can_move_piece_at((0,4)) == False
 
 def test_has_some_legal_move_somewhere():
     set_board(board1)

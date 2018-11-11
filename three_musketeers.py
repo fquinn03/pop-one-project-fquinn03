@@ -101,40 +101,43 @@ def is_legal_move_by_musketeer(location, direction):
     """Tests if the Musketeer at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'M'"""
-    if at(location) == 'M':
-        new_location = adjacent_location(location, direction)
-        if at(new_location) == "R":
-            return True
+    new_location = adjacent_location(location, direction)
+    if is_legal_location(new_location):
+        if at(location) == 'M':
+            if at(new_location) == "R":
+                return True
+            else:
+                return False
         else:
-            return False
+            raise ValueError ("You have to move a musketeer piece")
     else:
-        raise ValueError ("You have to move a musketeer piece")
+         return False
 
 def is_legal_move_by_enemy(location, direction):
     """Tests if the enemy at the location can move in the direction.
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'R'"""
-    if at(location) == 'R':
-        new_location = adjacent_location(location, direction)
-        if at(new_location) == "-":
-            return True
+    new_location = adjacent_location(location, direction)
+    if is_legal_location(new_location):
+        if at(location) == 'R':
+            if at(new_location) == "-":
+                return True
+            else:
+                return False
         else:
-            return False
+            raise ValueError ("You have to move an Enemy piece")
     else:
-        raise ValueError ("You have to move an Enemy piece")
+        return False
 
 
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
     You can assume that input will always be in correct range."""
-    if is_legal_location(location):
-        if at(location) == "M":
-            return is_legal_move_by_musketeer(location, direction)
-        elif at(location) == "R":
-            return is_legal_move_by_enemy(location, direction)
-        else:
-            return False
+    if at(location) == "M":
+        return is_legal_move_by_musketeer(location, direction)
+    elif at(location) == "R":
+        return is_legal_move_by_enemy(location, direction)
     else:
         return False
 
@@ -146,7 +149,6 @@ def can_move_piece_at(location):
     for i in range(len(directions)):
         if is_legal_move(location, directions[i]):
             return True
-            break
         else:
             return False
 
