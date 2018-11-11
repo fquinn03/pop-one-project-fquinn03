@@ -63,19 +63,19 @@ def test_get_board():
 def test_string_to_location():
     with pytest.raises(ValueError):
         string_to_location('X3')
-    assert string_to_location('A0') == (0,0)
+    assert string_to_location('A1') == (0,0)
     with pytest.raises(ValueError):
         string_to_location('H4')
-    assert string_to_location('C4') == (2,4)
+    assert string_to_location('C4') == (2,3)
     #eventually add at least one more exception test and two more
     #test with correct inputs
 
 def test_location_to_string():
     # replace with tests
-    assert location_to_string((1,1))=="B1"
+    assert location_to_string((1,1))=="B2"
     with pytest.raises(ValueError):
         location_to_string((5,5))
-    assert location_to_string((3,4))=="D4"
+    assert location_to_string((3,4))=="D5"
     with pytest.raises(ValueError):
         location_to_string((-1,5))
 

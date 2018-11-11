@@ -43,7 +43,7 @@ def string_to_location(s):
        between '1' and '5' for s[1]
        """
     rows = {"A":0,"B":1, "C":2, "D":3, "E":4}
-    columns = {"0":0, "1":1,"2":2, "3":3, "4":4}
+    columns = {"1":0, "2":1,"3":2, "4":3, "5":4}
     try:
         loc_row = rows[s[0]]
         loc_col = columns[s[1]]
@@ -58,7 +58,7 @@ def location_to_string(location):
     ValueError exception if the input is outside of the correct range
     """
     rows = {0:"A",1:"B", 2:"C", 3:"D", 4:"E"}
-    columns = {0:"0", 1:"1",2:"2", 3:"3", 4:"4"}
+    columns = {0:"1", 1:"2",2:"3", 3:"4", 4:"5"}
     try:
         loc_row = rows[location[0]]
         loc_col = columns[location[1]]
@@ -213,7 +213,7 @@ def make_move(location, direction):
         (row, column) = adjacent_location(location, direction)
         board[location[0]][location[1]] = "-"
         board[row][column] = player
-    return get_board()
+    return board
 
 def choose_computer_move(who):
     """The computer chooses a move for a Musketeer (who = 'M') or an
