@@ -21,6 +21,12 @@ board2 =   [[_, _, _, M, _],
             [_, R, _, _, _],
             [_, _, _, M, _]]
 
+board3 =   [[_, _, _, M, _],
+            [_, _, R, _, M],
+            [_, R, R, R, _],
+            [_, R, _, _, _],
+            [_, _, _, M, _]]
+
 def test_create_board():
     create_board()
     assert at((0,0)) == R
@@ -128,12 +134,23 @@ def test_has_some_legal_move_somewhere():
     set_board(board1)
     assert has_some_legal_move_somewhere('M') == True
     assert has_some_legal_move_somewhere('R') == True
+    set_board(board3)
+    assert has_some_legal_move_somewhere('M') == False
+    assert has_some_legal_move_somewhere('R') == True
+    create_board()
+    assert has_some_legal_move_somewhere('R') == False
     # Eventually put at least three additional tests here
     # with at least one additional board
 
 def test_possible_moves_from():
     set_board(board1)
     assert possible_moves_from((2,1)) == ["up","left"]
+    assert possible_moves_from((3,1)) == ["down","left","right"]
+    assert possible_moves_from((0,4)) == []
+    assert possible_moves_from((3,2)) == []
+    create_board()
+    assert possible_moves_from((0,0)) == []
+    assert possible_moves_from((2,2)) == ["up","down","left","right"]
 
 def test_is_legal_location():
     assert is_legal_location((2,2)) == True
@@ -155,7 +172,7 @@ def test_make_move():
                                         [_, _, _, R, _]]
 
 def test_choose_computer_move():
-    assert choose_computer_move(R) == ((1,3),"down")
+    assert choose_computer_move(R) == ((1,2),"up")
 
 def test_is_enemy_win():
     set_board(board1)

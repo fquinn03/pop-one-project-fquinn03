@@ -129,7 +129,6 @@ def is_legal_move_by_enemy(location, direction):
     else:
         return False
 
-
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
@@ -160,7 +159,10 @@ def has_some_legal_move_somewhere(who):
     for location in all_locations():
         for i in range(5):
             if at(location[i]) == who:
-                return can_move_piece_at(location[i])
+                if can_move_piece_at(location[i]):
+                    return True
+    else:
+        return False
 
 def possible_moves_from(location):
     """Returns a list of directions ('left', etc.) in which it is legal
@@ -173,9 +175,7 @@ def possible_moves_from(location):
         for i in range(len(directions)):
             if is_legal_move(location, directions[i]):
                 moves.append(directions[i])
-        return moves
-    else:
-        return moves
+    return moves
 
 def is_legal_location(location):
     """Tests if the location is legal on a 5x5 board.
