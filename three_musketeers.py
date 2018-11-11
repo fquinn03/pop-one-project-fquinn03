@@ -189,7 +189,7 @@ def is_legal_location(location):
 def is_within_board(location, direction):
     """Tests if the move stays within the boundaries of the board.
     You can assume that input will always be in correct range."""
-    return is_legal_location(adjacent_location(location, direction))
+    return is_legal_location((adjacent_location(location, direction)))
 
 def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
