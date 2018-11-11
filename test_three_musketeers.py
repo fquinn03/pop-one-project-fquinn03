@@ -15,10 +15,18 @@ board1 =  [[_, _, _, M, _],
             [_, R, _, _, _],
             [_, _, _, R, _]]
 
+board2 =   [[_, _, _, M, _],
+            [_, _, R, M, _],
+            [_, R, R, R, _],
+            [_, R, _, _, _],
+            [_, _, _, M, _]]
+
 def test_create_board():
     create_board()
     assert at((0,0)) == R
     assert at((0,4)) == M
+    assert at((1,2)) == R
+    assert at ((4,0)) == M
     #eventually add at least two more test cases
 
 def test_set_board():
@@ -26,30 +34,56 @@ def test_set_board():
     assert at((0,0)) == _
     assert at((1,2)) == R
     assert at((1,3)) == M
+    set_board(board2)
+    assert at((1,3)) == M
+    assert at((2,2)) == R
+    assert at((4,4)) == _
     #eventually add some board2 and at least 3 tests with it
 
 def test_get_board():
     set_board(board1)
-    get_board()
-    assert at((0,0)) == _
-    assert at((1,2)) == R
-    assert at((1,3)) == M
-
-    #eventually add at least one more test with another board
+    assert get_board() == [[_, _, _, M, _],
+                          [_, _, R, M, _],
+                          [_, R, M, R, _],
+                          [_, R, _, _, _],
+                          [_, _, _, R, _]]
+    set_board(board2)
+    assert get_board() ==   [[_, _, _, M, _],
+                            [_, _, R, M, _],
+                            [_, R, R, R, _],
+                            [_, R, _, _, _],
+                            [_, _, _, M, _]]
 
 def test_string_to_location():
     with pytest.raises(ValueError):
         string_to_location('X3')
     assert string_to_location('A0') == (0,0)
+    with pytest.raises(ValueError):
+        string_to_location('H4')
+    assert string_to_location('C4') == (2,4)
     #eventually add at least one more exception test and two more
     #test with correct inputs
 
 def test_location_to_string():
     # replace with tests
     assert location_to_string((1,1))=="B1"
+    with pytest.raises(ValueError):
+        location_to_string((5,5))
+    assert location_to_string((3,4))=="D4"
+    with pytest.raises(ValueError):
+        location_to_string((-1,5))
 
 def test_at():
+    set_board(board1)
+    get_board()
     assert at((2,2)) == M
+    assert at((1,2)) == R
+    assert at((0,0)) == _
+    set_board(board2)
+    get_board()
+    assert at((2,2)) == R
+    assert at((0,3)) == M
+    assert at((0,0)) == _
 
 def test_all_locations():
     assert all_locations()==[[(0,0),(0,1),(0,2),(0,3),(0,4)],[(1,0),(1,1),(1,2),(1,3),(1,4)],
@@ -95,6 +129,7 @@ def test_all_possible_moves_for():
     set_board(board1)
     assert all_possible_moves_for("M")==[((1, 3), 'down'), ((1, 3), 'left'), ((2, 2), 'up'), ((2, 2), 'left'), ((2, 2), 'right')]
 
+
 def test_make_move():
     set_board(board1)
     assert make_move((2,2),"left") == [ [_, _, _, M, _],
@@ -104,7 +139,7 @@ def test_make_move():
                                         [_, _, _, R, _]]
 
 def test_choose_computer_move():
-    assert choose_computer_move(R) == ((1,2),"up")
+    assert choose_computer_move(R) == ((1,3),"down")
 
 def test_is_enemy_win():
     set_board(board1)

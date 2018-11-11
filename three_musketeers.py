@@ -19,7 +19,7 @@ def create_board():
        Cardinal Richleau's men, and '-' denotes an empty space."""
     m = 'M'
     r = 'R'
-    board = [[r, r, r, r, m],
+    board =  [[r, r, r, r, m],
               [r, r, r, r, r],
               [r, r, m, r, r],
               [r, r, r, r, r],
@@ -50,7 +50,7 @@ def string_to_location(s):
         return (loc_row, loc_col)
     except KeyError:
         raise ValueError ("That location is not on the board.")
-        pass
+
 
 def location_to_string(location):
     """Returns the string representation of a location.
@@ -65,12 +65,13 @@ def location_to_string(location):
         return loc_row + loc_col
     except KeyError:
         raise ValueError ("That location is not on the board.")
-        pass
+
 
 def at(location):
     """Returns the contents of the board at the given location.
     You can assume that input will always be in correct range."""
     return board[location[0]][location[1]]
+
 
 def all_locations():
     """Returns a list of all 25 locations on the board."""
@@ -93,6 +94,7 @@ def adjacent_location(location, direction):
         column -=1
     else:
         column +=1
+
     return (row,column)
 
 def is_legal_move_by_musketeer(location, direction):
@@ -107,7 +109,6 @@ def is_legal_move_by_musketeer(location, direction):
             return False
     else:
         raise ValueError ("You have to move a musketeer piece")
-        pass
 
 def is_legal_move_by_enemy(location, direction):
     """Tests if the enemy at the location can move in the direction.
@@ -121,16 +122,19 @@ def is_legal_move_by_enemy(location, direction):
             return False
     else:
         raise ValueError ("You have to move an Enemy piece")
-        pass
+
 
 def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
     You can assume that input will always be in correct range."""
-    if at(location) == "M":
-        return is_legal_move_by_musketeer(location, direction)
-    elif at(location) == "R":
-        return is_legal_move_by_enemy(location, direction)
+    if is_legal_location(location):
+        if at(location) == "M":
+            return is_legal_move_by_musketeer(location, direction)
+        elif at(location) == "R":
+            return is_legal_move_by_enemy(location, direction)
+        else:
+            return False
     else:
         return False
 
@@ -194,7 +198,7 @@ def all_possible_moves_for(player):
         for i in range(5):
             if at(location[i]) == player:
                 for move in possible_moves_from(location[i]):
-                    if is_within_board(location[i],move):
+                    if is_within_board(location[i], move):
                         all_possible_moves.append((location[i],move))
     return all_possible_moves
 
@@ -203,8 +207,8 @@ def make_move(location, direction):
     Doesn't check if the move is legal. You can assume that input will always
     be in correct range."""
     player = at(location)
-    if (location,direction) in all_possible_moves_for(player):
-        (row, column) = adjacent_location(location,direction)
+    if (location, direction) in all_possible_moves_for(player):
+        (row, column) = adjacent_location(location, direction)
         board[location[0]][location[1]] = "-"
         board[row][column] = player
     return get_board()
@@ -214,11 +218,8 @@ def choose_computer_move(who):
     enemy (who = 'R') and returns it as the tuple (location, direction),
     where a location is a (row, column) tuple as usual.
     You can assume that input will always be in correct range."""
-    for move in all_possible_moves_for(who):
-        move = all_possible_moves[0]
-    return (move)
-
-
+    all_possible_moves = all_possible_moves_for(who)
+    return (all_possible_moves[0])
 
 def is_enemy_win():
     locations_of_musketeers = []
