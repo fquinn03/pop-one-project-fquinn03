@@ -1,3 +1,4 @@
+import random
 # The Three Musketeers Game
 
 # In all methods,
@@ -221,7 +222,7 @@ def choose_computer_move(who):
     where a location is a (row, column) tuple as usual.
     You can assume that input will always be in correct range."""
     all_possible_moves = all_possible_moves_for(who)
-    return (all_possible_moves[0])
+    return random.choice(all_possible_moves)
 
 def is_enemy_win():
     locations_of_musketeers = []
