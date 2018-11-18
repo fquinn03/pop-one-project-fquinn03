@@ -119,7 +119,7 @@ def is_legal_move_by_enemy(location, direction):
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'R'"""
     new_location = adjacent_location(location, direction)
-    if is_legal_location(new_location):
+    if is_within_board(location, direction):
         if at(location) == 'R':
             if at(new_location) == "-":
                 return True
@@ -349,6 +349,7 @@ def start():
         else:
             print("The Musketeers win!")
             break
+
         if has_some_legal_move_somewhere('R'):
             board = move_enemy(users_side)
             print_board()

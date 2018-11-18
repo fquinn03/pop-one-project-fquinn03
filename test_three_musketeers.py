@@ -33,6 +33,12 @@ board4 =   [[_, _, _, _, _],
             [M, R, M, M, _],
             [_, _, _, _, _]]
 
+board5 = [[R ,_, _, R, M],
+          [_, M, _, R, _],
+          [M, _, _, _, _],
+          [_, _, _, _, _],
+          [_, _, _, _, _]]
+
 def test_create_board():
     create_board()
     assert at((0,0)) == R
@@ -112,7 +118,8 @@ def test_is_legal_move_by_musketeer():
     assert is_legal_move_by_musketeer((0,4),"up") == False
     with pytest.raises(ValueError):
         assert is_legal_move_by_musketeer((3,1),"up")
-
+    set_board(board5)
+    assert is_legal_move_by_musketeer((0,4), "left") == True
 
 def test_is_legal_move_by_enemy():
     set_board(board1)
@@ -120,6 +127,8 @@ def test_is_legal_move_by_enemy():
     assert is_legal_move_by_enemy((4,3),"down") == False
     with pytest.raises(ValueError):
             assert is_legal_move_by_enemy((2,2),"up")
+    set_board(board5)
+    assert test_is_legal_move_by_enemy((1,3), "right") == True
 
 
 def test_is_legal_move():
@@ -145,6 +154,9 @@ def test_has_some_legal_move_somewhere():
     assert has_some_legal_move_somewhere('R') == True
     create_board()
     assert has_some_legal_move_somewhere('R') == False
+    set_board(board5)
+    assert has_some_legal_move_somewhere('M') == True
+    assert has_some_legal_move_somewhere('R') == True
     # Eventually put at least three additional tests here
     # with at least one additional board
 
@@ -235,11 +247,13 @@ def test_choose_computer_move():
     assert all_possible_moves_for("R")== ((1, 2), 'up') or ((1, 2), 'left') or ((1, 2), 'right') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'up') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
     assert all_possible_moves_for("R")== ((1, 2), 'up') or ((1, 2), 'left') or ((1, 2), 'right') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'up') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
     assert all_possible_moves_for("R")== ((1, 2), 'up') or ((1, 2), 'left') or ((1, 2), 'right') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'up') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
-    
+
 def test_is_enemy_win():
     set_board(board1)
     assert is_enemy_win() == False
     set_board(board2)
     assert is_enemy_win() == True
+    set_board(board3)
+    assert is_enemy_win() == False
     set_board(board4)
     assert is_enemy_win() == True
