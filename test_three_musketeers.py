@@ -33,11 +33,11 @@ board4 =   [[_, _, _, _, _],
             [M, R, M, M, _],
             [_, _, _, _, _]]
 
-board5 = [[R ,_, _, R, M],
-          [_, M, _, R, _],
-          [M, _, _, _, _],
-          [_, _, _, _, _],
-          [_, _, _, _, _]]
+board5 = [[R,_,_,R,M],
+          [_,M,_,R,_],
+          [M,_,_,_,_],
+          [_,_,_,_,_],
+          [_,_,_,_,_]]
 
 def test_create_board():
     create_board()
@@ -115,7 +115,6 @@ def test_adjacent_location():
 def test_is_legal_move_by_musketeer():
     set_board(board1)
     assert is_legal_move_by_musketeer((2,2), "up") == True
-    assert is_legal_move_by_musketeer((0,4),"up") == False
     with pytest.raises(ValueError):
         assert is_legal_move_by_musketeer((3,1),"up")
     set_board(board5)
@@ -124,11 +123,10 @@ def test_is_legal_move_by_musketeer():
 def test_is_legal_move_by_enemy():
     set_board(board1)
     assert is_legal_move_by_enemy((1,2),"up") == True
-    assert is_legal_move_by_enemy((4,3),"down") == False
     with pytest.raises(ValueError):
             assert is_legal_move_by_enemy((2,2),"up")
     set_board(board5)
-    assert test_is_legal_move_by_enemy((1,3), "right") == True
+    assert is_legal_move_by_enemy((1,3), "right") == True
 
 
 def test_is_legal_move():
@@ -154,6 +152,9 @@ def test_has_some_legal_move_somewhere():
     assert has_some_legal_move_somewhere('R') == True
     create_board()
     assert has_some_legal_move_somewhere('R') == False
+    set_board(board4)
+    assert has_some_legal_move_somewhere('M') == True
+    assert has_some_legal_move_somewhere('R') == True
     set_board(board5)
     assert has_some_legal_move_somewhere('M') == True
     assert has_some_legal_move_somewhere('R') == True

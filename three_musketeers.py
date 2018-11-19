@@ -71,7 +71,10 @@ def location_to_string(location):
 def at(location):
     """Returns the contents of the board at the given location.
     You can assume that input will always be in correct range."""
-    return board[location[0]][location[1]]
+    if is_legal_location(location):
+        return board[location[0]][location[1]]
+    else:
+        return False
 
 
 def all_locations():
@@ -103,7 +106,7 @@ def is_legal_move_by_musketeer(location, direction):
     You can assume that input will always be in correct range. Raises
     ValueError exception if at(location) is not 'M'"""
     new_location = adjacent_location(location, direction)
-    if is_legal_location(new_location):
+    if is_within_board(location, direction):
         if at(location) == 'M':
             if at(new_location) == "R":
                 return True
@@ -112,7 +115,7 @@ def is_legal_move_by_musketeer(location, direction):
         else:
             raise ValueError ("You have to move a musketeer piece")
     else:
-         return False
+        return False
 
 def is_legal_move_by_enemy(location, direction):
     """Tests if the enemy at the location can move in the direction.
@@ -120,8 +123,8 @@ def is_legal_move_by_enemy(location, direction):
     ValueError exception if at(location) is not 'R'"""
     new_location = adjacent_location(location, direction)
     if is_within_board(location, direction):
-        if at(location) == 'R':
-            if at(new_location) == "-":
+        if at(location) == "R":
+            if at(new_location) == "-" :
                 return True
             else:
                 return False
@@ -149,8 +152,8 @@ def can_move_piece_at(location):
     for i in range(len(directions)):
         if is_legal_move(location, directions[i]):
             return True
-        else:
-            return False
+    else:
+        return False
 
 def has_some_legal_move_somewhere(who):
     """Tests whether a legal move exists for player "who" (which must
@@ -164,6 +167,7 @@ def has_some_legal_move_somewhere(who):
                     return True
     else:
         return False
+
 
 def possible_moves_from(location):
     """Returns a list of directions ('left', etc.) in which it is legal
@@ -199,10 +203,11 @@ def all_possible_moves_for(player):
     all_possible_moves = []
     for location in all_locations():
         for i in range(5):
-            if at(location[i]) == player:
-                for move in possible_moves_from(location[i]):
-                    if is_within_board(location[i], move):
-                        all_possible_moves.append((location[i],move))
+            for move in possible_moves_from(location[i]):
+                if at(location[i]) == player:
+                    if is_legal_move(location[i], move):
+                        if is_within_board(location[i], move):
+                            all_possible_moves.append((location[i],move))
     return all_possible_moves
 
 def make_move(location, direction):
