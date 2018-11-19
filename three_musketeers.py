@@ -227,7 +227,10 @@ def choose_computer_move(who):
     where a location is a (row, column) tuple as usual.
     You can assume that input will always be in correct range."""
     all_possible_moves = all_possible_moves_for(who)
-    return random.choice(all_possible_moves)
+    if len(all_possible_moves)>1:
+        return random.choice(all_possible_moves)
+    else:
+        return all_possible_moves[0]
 
 def is_enemy_win():
     locations_of_musketeers = []
@@ -361,3 +364,5 @@ def start():
         else:
             print("The Musketeers win!")
             break
+
+start()

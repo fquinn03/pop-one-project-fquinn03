@@ -200,6 +200,11 @@ def test_all_possible_moves_for():
     ((2, 3), 'right'), ((3,1), 'down'), ((3,1), 'left'), ((3,1), 'right')]
     assert all_possible_moves_for("M")==[]
 
+    set_board(board4)
+    assert all_possible_moves_for("M")== [((3,0), "right"), ((3,2), "up"),((3,2), "left"),((3,3),"up")]
+    assert all_possible_moves_for("R") == [((1,2), "up"), ((1,2),"left"), ((1,2),"right"),((2,1),"up"),((2,1),"left"),
+                                           ((2,3),"up"),((2,3),"right"),((3,1),"down")]
+
 def test_make_move():
     set_board(board1)
     assert make_move((2,2),"left") ==   [[_, _, _, M, _],
@@ -222,32 +227,18 @@ def test_choose_computer_move():
                 [_, R, _, _, _],
                 [_, _, _, R, _]]
     set_board(board1)
-    assert choose_computer_move(R) == ((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right') or ((4,3), 'up') or ((4,3), 'left') or ((4,3), 'right')
-    assert choose_computer_move(R) == ((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right') or ((4,3), 'up') or ((4,3), 'left') or ((4,3), 'right')
-    assert choose_computer_move(R) == ((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right') or ((4,3), 'up') or ((4,3), 'left') or ((4,3), 'right')
-    assert choose_computer_move(R) == ((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right') or ((4,3), 'up') or ((4,3), 'left') or ((4,3), 'right')
-    assert choose_computer_move(R) == ((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right') or ((4,3), 'up') or ((4,3), 'left') or ((4,3), 'right')
-    assert choose_computer_move(R) == ((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right') or ((4,3), 'up') or ((4,3), 'left') or ((4,3), 'right')
-    assert all_possible_moves_for(M) == ((1, 3), 'down') or ((1, 3), 'left') or ((2, 2), 'up') or ((2, 2), 'left') or ((2, 2), 'right')
-    assert all_possible_moves_for(M) == ((1, 3), 'down') or ((1, 3), 'left') or ((2, 2), 'up') or ((2, 2), 'left') or ((2, 2), 'right')
-    assert all_possible_moves_for(M) == ((1, 3), 'down') or ((1, 3), 'left') or ((2, 2), 'up') or ((2, 2), 'left') or ((2, 2), 'right')
-    assert all_possible_moves_for(M) == ((1, 3), 'down') or ((1, 3), 'left') or ((2, 2), 'up') or ((2, 2), 'left') or ((2, 2), 'right')
-    assert all_possible_moves_for(M) == ((1, 3), 'down') or ((1, 3), 'left') or ((2, 2), 'up') or ((2, 2), 'left') or ((2, 2), 'right')
+    assert choose_computer_move("R") == ((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right') or ((4,3), 'up') or ((4,3), 'left') or ((4,3), 'right')
+    assert all_possible_moves_for("M") == ((1, 3), 'down') or ((1, 3), 'left') or ((2, 2), 'up') or ((2, 2), 'left') or ((2, 2), 'right')
+
     set_board(board2)
     assert all_possible_moves_for("M")==((1, 3), 'down') or  ((1, 3), 'left')
-    assert all_possible_moves_for("M")==((1, 3), 'down') or  ((1, 3), 'left')
     assert all_possible_moves_for("R")==((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
-    assert all_possible_moves_for("R")==((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
-    assert all_possible_moves_for("R")==((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
-    assert all_possible_moves_for("R")==((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
-    assert all_possible_moves_for("R")==((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
-    assert all_possible_moves_for("R")==((1, 2), 'up') or ((1, 2), 'left') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
+
     set_board(board3)
     assert all_possible_moves_for("R")== ((1, 2), 'up') or ((1, 2), 'left') or ((1, 2), 'right') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'up') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
-    assert all_possible_moves_for("R")== ((1, 2), 'up') or ((1, 2), 'left') or ((1, 2), 'right') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'up') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
-    assert all_possible_moves_for("R")== ((1, 2), 'up') or ((1, 2), 'left') or ((1, 2), 'right') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'up') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
-    assert all_possible_moves_for("R")== ((1, 2), 'up') or ((1, 2), 'left') or ((1, 2), 'right') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'up') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
-    assert all_possible_moves_for("R")== ((1, 2), 'up') or ((1, 2), 'left') or ((1, 2), 'right') or ((2, 1), 'up') or ((2, 1), 'left') or ((2, 2), 'down') or ((2, 3), 'up') or ((2, 3), 'down') or ((2, 3), 'right') or ((3,1), 'down') or ((3,1), 'left') or ((3,1), 'right')
+
+    set_board(board4)
+    assert all_possible_moves_for("M")== ((3,0), "right") or ((3,2), "up") or ((3,2), "left") or ((3,3),"up")
 
 def test_is_enemy_win():
     set_board(board1)
