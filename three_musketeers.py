@@ -137,6 +137,7 @@ def is_legal_move(location, direction):
     """Tests whether it is legal to move the piece at the location
     in the given direction.
     You can assume that input will always be in correct range."""
+
     if at(location) == "M":
         return is_legal_move_by_musketeer(location, direction)
     elif at(location) == "R":
@@ -200,6 +201,9 @@ def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
      (location, direction) tuples.
      You can assume that input will always be in correct range."""
+
+     """ checks all locations, if the location matches the player, checks each move in all_possible_moves
+     and if the move is legal, adds it to a list which moves can be chosen from"""
     all_possible_moves = []
     for location in all_locations():
         for i in range(5):
@@ -226,6 +230,9 @@ def choose_computer_move(who):
     enemy (who = 'R') and returns it as the tuple (location, direction),
     where a location is a (row, column) tuple as usual.
     You can assume that input will always be in correct range."""
+
+    """Uses random library to make a choice of moves from all possible_moves. If only
+    one move is possible it makes this move"""
     all_possible_moves = all_possible_moves_for(who)
     if len(all_possible_moves)>1:
         return random.choice(all_possible_moves)
@@ -233,6 +240,9 @@ def choose_computer_move(who):
         return all_possible_moves[0]
 
 def is_enemy_win():
+    """checks the board for the location of the musketeers and returns their locations to a list
+    checks this list to see if the first index of the location of each matches (all in same row)
+    and checks if second index of location in each matches (all in same column)"""
     locations_of_musketeers = []
     for location in all_locations():
         for i in range(5):
