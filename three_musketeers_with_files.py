@@ -393,7 +393,7 @@ def load_game():
         csv_reader = csv.reader(myFile, delimiter=',')
         for row in csv_reader:
             if name == row[0]:
-                board = row[1]
+                load_board = row[1]
                 users_side = row[2]
                 start_load(load_board, users_side)
 
@@ -436,8 +436,8 @@ def play_or_load():
 def save_game(board):
     name = input("Enter name to save game: ")
     user = input("Which side are you playing(M or R): ")
-    myNewData = name, board, user
-    myFile = open('saved_games.csv', 'w')
+    myNewData = [["Game_Name", "Board", "User"],[name, board, user]]
+    myFile = open('saved_games.csv', 'w', newline='')
     with myFile:
         writer = csv.writer(myFile)
         writer.writerows(myNewData)
