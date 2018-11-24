@@ -373,3 +373,20 @@ def start():
         else:
             print("The Musketeers win!")
             break
+
+def play_or_load():
+    "Asks the user if they want to start a new game or load a saved game."
+    load_game = ""
+    while load_game  != 'L' or load_game != 'N':
+        load_game = input("Do you want to play a new game (N) or load a saved game (L)")
+        load_game = load_game.strip().upper()
+        if load_game == 'L':
+            load_game()
+        if load_game == 'N':
+            start()
+
+def load_game():
+    message = "This will load a new game."
+    return(message)
+
+play_or_load()
