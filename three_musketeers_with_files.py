@@ -1,4 +1,5 @@
 import random
+import csv
 # The Three Musketeers Game
 
 # In all methods,
@@ -296,17 +297,20 @@ def get_users_move():
     """Gets a legal move from the user, and returns it as a
        (location, direction) tuple."""
     directions = {'L':'left', 'R':'right', 'U':'up', 'D':'down'}
-    move = input("Your move? ").upper().replace(' ', '')
-    if (len(move) >= 3
-            and move[0] in 'ABCDE'
-            and move[1] in '12345'
-            and move[2] in 'LRUD'):
-        location = string_to_location(move[0:2])
-        direction = directions[move[2]]
-        if is_legal_move(location, direction):
-            return (location, direction)
-    print("Illegal move--'" + move + "'")
-    return get_users_move()
+    move = input("Your move? Or enter Save (S) to save game. ").upper().replace(' ', '')
+    if move.upper() == 'S':
+        save_game(board)
+    else:
+        if (len(move) >= 3
+                and move[0] in 'ABCDE'
+                and move[1] in '12345'
+                and move[2] in 'LRUD'):
+            location = string_to_location(move[0:2])
+            direction = directions[move[2]]
+            if is_legal_move(location, direction):
+                return (location, direction)
+        print("Illegal move--'" + move + "'")
+        return get_users_move()
 
 def move_musketeer(users_side):
     """Gets the Musketeer's move (from either the user or the computer)
@@ -374,19 +378,68 @@ def start():
             print("The Musketeers win!")
             break
 
+def load_game():
+    """ Go through the saved games and print the name of each game. Ask the user for
+    the name of the game they want to load and get the board from the file and save it as the board for the game"""
+
+    board = [[],[],[],[],[]]
+    with open('saved_games.csv') as myFile:
+        csv_reader = csv.reader(myFile, delimiter=',')
+        for row in csv_reader:
+            print(row[0])
+
+    name = input("Enter name of game you want to load: ")
+    with open('saved_games.csv') as myFile:
+        csv_reader = csv.reader(myFile, delimiter=',')
+        for row in csv_reader:
+            if name == row[0]:
+                board = row[1]
+                users_side = row[2]
+                start_load(load_board, users_side)
+
+def start_load(board, users_side):
+    print_instructions()
+    set_board(board)
+    print_board()
+    while True:
+        if has_some_legal_move_somewhere('M'):
+            board = move_musketeer(users_side)
+            print_board()
+            if is_enemy_win():
+                print("Cardinal Richleau's men win!")
+                break
+        else:
+            print("The Musketeers win!")
+            break
+
+        if has_some_legal_move_somewhere('R'):
+            board = move_enemy(users_side)
+            print_board()
+        else:
+            print("The Musketeers win!")
+            break
+
+    if load_board == [[],[],[],[],[]]:
+        print("That isn't a saved game")
+
 def play_or_load():
     "Asks the user if they want to start a new game or load a saved game."
-    load_game = ""
-    while load_game  != 'L' or load_game != 'N':
-        load_game = input("Do you want to play a new game (N) or load a saved game (L)")
-        load_game = load_game.strip().upper()
-        if load_game == 'L':
+    load = ""
+    while load  != 'L' or load != 'N':
+        load= input("Do you want to play a new game (N) or load a saved game (L): ")
+        load = load.strip().upper()
+        if load == 'L':
             load_game()
-        if load_game == 'N':
+        if load == 'N':
             start()
 
-def load_game():
-    message = "This will load a new game."
-    return(message)
+def save_game(board):
+    name = input("Enter name to save game: ")
+    user = input("Which side are you playing(M or R): ")
+    myNewData = name, board, user
+    myFile = open('saved_games.csv', 'w')
+    with myFile:
+        writer = csv.writer(myFile)
+        writer.writerows(myNewData)
 
 play_or_load()
