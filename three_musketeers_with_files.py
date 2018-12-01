@@ -1,5 +1,6 @@
 import random
 import csv
+import sys
 
 
 # The Three Musketeers Game
@@ -302,7 +303,6 @@ def get_users_move():
     move = input("Your move? Or enter Save (S) to save game. ").upper().replace(' ', '')
     if move.upper() == 'S':
         save_game(board)
-        print("See you later!!!")
     else:
         if (len(move) >= 3
                 and move[0] in 'ABCDE'
@@ -385,7 +385,6 @@ def load_game():
     """ Go through the saved games and print the name of each game. Ask the user for
     the name of the game they want to load and get the board from the file and save it as the board for the game"""
 
-    board = [[],[],[],[],[]]
     with open('saved_games.csv') as myFile:
         csv_reader = csv.reader(myFile, delimiter=',')
         for row in csv_reader:
@@ -401,6 +400,7 @@ def load_game():
                 start_load(load_board, users_side)
 
 def start_load(load_board, users_side):
+    """Start the users game with the board and side they saved previously"""
     board = set_board(load_board)
     user = users_side
     print_board()
@@ -441,5 +441,10 @@ def save_game(board):
     with myFile:
         writer = csv.writer(myFile)
         writer.writerows(myNewData)
+
+    print("Thanks for playing.")
+    print("You can play game " +name+ " later.")
+    sys.exit()
+
 
 play_or_load()
