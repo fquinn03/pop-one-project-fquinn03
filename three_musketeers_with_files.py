@@ -1,5 +1,7 @@
 import random
 import csv
+
+
 # The Three Musketeers Game
 
 # In all methods,
@@ -300,6 +302,7 @@ def get_users_move():
     move = input("Your move? Or enter Save (S) to save game. ").upper().replace(' ', '')
     if move.upper() == 'S':
         save_game(board)
+        print("See you later!!!")
     else:
         if (len(move) >= 3
                 and move[0] in 'ABCDE'
@@ -399,7 +402,7 @@ def load_game():
 
 def start_load(load_board, users_side):
     board = set_board(load_board)
-    users = users_side
+    user = users_side
     print_board()
     while True:
         if has_some_legal_move_somewhere('M'):
@@ -432,7 +435,7 @@ def play_or_load():
 
 def save_game(board):
     name = input("Enter name to save game: ")
-    user = input("Which side are you playing(M or R): ")
+    user = input("Which side are you playing (M or R): ").upper()
     myNewData = [[name, board, user]]
     myFile = open('saved_games.csv', 'a', newline='')
     with myFile:
