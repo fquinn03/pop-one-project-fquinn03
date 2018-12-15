@@ -392,45 +392,29 @@ def save_game(board):
         """Checks to see how many games have been saved. """
         for row in csv_reader:
             count +=1
-    #Count <=21 allows 20 games plus table headers to be savedself.
-    #If 20 games have already been saved the user must choose one to overwrite, or clear all saved games and save file"""
-
-
+    #Count <=11 allows 10 games plus table headers to be saved.
     if count <11:
        name = input("Enter name to save game: ")
-       user = input("Which side are you playing (M or R): ").upper()
-       myNewData = [["Name", "Board", "Playing as"],[name, board, user]]
-       with open('saved_games.csv') as myFile:
-           csv_reader = csv.reader(myFile, delimiter=',')
-           for row in csv_reader:
-               if row[0] == name or row[0] == "Name":
-                   continue
-               else:
-                   myNewData.append(row)
-
-       with open('saved_games.csv', 'w', newline='') as myFile:
-           writer = csv.writer(myFile)
-           writer.writerows(myNewData)
-
     else:
-        with open('saved_games.csv') as myFile:
-            csv_reader = csv.reader(myFile, delimiter=',')
-            for row in csv_reader:
-                print(row[0])
-        name = input("Choose file from above to overwrite: ")
-        user = input("Which side are you playing (M or R): ").upper()
-        myNewData = [["Name", "Board", "Playing as"],[name, board, user]]
-        with open('saved_games.csv') as myFile:
-           csv_reader = csv.reader(myFile, delimiter=',')
-           for row in csv_reader:
-               if row[0] == name or row[0] == "Name":
-                   continue
-               else:
-                   myNewData.append(row)
+      with open('saved_games.csv') as myFile:
+          csv_reader = csv.reader(myFile, delimiter=',')
+          for row in csv_reader:
+              print(row[0])
 
-        with open('saved_games.csv', 'w', newline='') as myFile:
-           writer = csv.writer(myFile)
-           writer.writerows(myNewData)
+      name = input("Choose file from above to overwrite: ")
+    user = input("Which side are you playing (M or R): ").upper()
+    myNewData = [["Name", "Board", "Playing as"],[name, board, user]]
+    with open('saved_games.csv') as myFile:
+        csv_reader = csv.reader(myFile, delimiter=',')
+        for row in csv_reader:
+            if row[0] == name or row[0] == "Name":
+                continue
+            else:
+                myNewData.append(row)
+
+    with open('saved_games.csv', 'w', newline='') as myFile:
+        writer = csv.writer(myFile)
+        writer.writerows(myNewData)
 
     print("Thanks for playing.")
     print("You can play game " +name+ " later.")
