@@ -356,9 +356,9 @@ def describe_move(who, location, direction):
     print(who, 'moves', direction, 'from',\
           location_to_string(location), 'to',\
           location_to_string(new_location) + ".\n")
-
+"""
 def start():
-    """Plays the Three Musketeers Game."""
+    Plays the Three Musketeers Game.
     users_side = choose_users_side()
     board = create_board()
     print_instructions()
@@ -380,18 +380,21 @@ def start():
         else:
             print("The Musketeers win!")
             break
+            """
 
 def save_game(board):
     """Asks the user for their file/user name and playing side and saves this information in a csv file to load later.
        If player saves game as existing game file, it is over written
        Maximum number of saved games is 10. """
 
+    # count the number of games already saved
     count = 0
     with open('saved_games.csv') as myFile:
         csv_reader = csv.reader(myFile, delimiter=',')
         """Checks to see how many games have been saved. """
         for row in csv_reader:
             count +=1
+
     #Count <=11 allows 10 games plus table headers to be saved.
     if count <11:
        name = input("Enter name to save game: ")
@@ -438,15 +441,21 @@ def load_game():
         csv_reader = csv.reader(myFile, delimiter=',')
         for row in csv_reader:
             if name == row[0]:
-                # eval converts board string in file back to list which can be printed by print_board()
-                load_board = eval(row[1])
+                # eval converts board string which is saved in file back into list of lists which can be printed by print_board()
+                board = eval(row[1])
                 users_side = row[2]
-                start_load(load_board, users_side)
+                start(load_board, users_side)
 
-def start_load(load_board, users_side):
+def start(board, users_side):
     """Start the users game with the board and side they saved previously"""
-    board = set_board(load_board)
-    user = users_side
+    if board != create_board():
+        board = set_board(board)
+    else:
+        board = create_board()
+
+    if users_side != "M" and users_side != "R":
+        users_side = choose_users_side()
+
     print_board()
     while True:
         if has_some_legal_move_somewhere('M'):
@@ -475,6 +484,8 @@ def play_or_load():
         if load == 'L':
             load_game()
         if load == 'N':
-            start()
+            board = create_board()
+            users_side = ""
+            start(board, users_side)
 
 play_or_load()
