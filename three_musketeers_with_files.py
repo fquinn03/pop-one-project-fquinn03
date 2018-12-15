@@ -400,9 +400,13 @@ def save_game(board):
           csv_reader = csv.reader(myFile, delimiter=',')
           for row in csv_reader:
               print(row[0])
-
       name = input("Choose file from above to overwrite: ")
-    user = input("Which side are you playing (M or R): ").upper()
+
+    user = ""
+    while user != "M" and user != "R":
+        user = input("Which side are you playing (M or R): ").upper()
+        user = user.strip()
+
     myNewData = [["Name", "Board", "Playing as"],[name, board, user]]
     with open('saved_games.csv') as myFile:
         csv_reader = csv.reader(myFile, delimiter=',')
