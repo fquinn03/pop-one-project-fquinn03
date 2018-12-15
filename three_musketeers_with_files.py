@@ -436,8 +436,8 @@ def load_game():
         with open('saved_games.csv') as myFile:
             csv_reader = csv.reader(myFile, delimiter=',')
             for row in csv_reader:
-                if name == row[0]:
                 # eval converts board string which is saved in file back into list of lists which can be printed by print_board()
+                if name == row[0]:
                     board = eval(row[1])
                     users_side = row[2]
                     start(board, users_side)
@@ -445,6 +445,7 @@ def load_game():
             print("You must enter one of the file names above. ")
 
 def start(board, users_side):
+    board = set_board(board)
     """ Start the users game with the board and side they have just selected from load_game
     or else starts a new game. Clears the screen and prints the instructions """
     clear()
@@ -459,12 +460,13 @@ def start(board, users_side):
     else:
         print("Welcome back, your are playing as "+users_side)
         print()
+        print_board()
         if users_side == "M":
-            print_board()
             move_musketeer(users_side)
-        else:
             print_board()
+        else:
             move_enemy(users_side)
+            print_board()
 
     while True:
         if has_some_legal_move_somewhere('M'):
