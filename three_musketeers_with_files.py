@@ -372,8 +372,16 @@ def save_game(board):
 
     #Count <=11 allows 10 games plus table headers to be saved.
     if count <11:
+        #prints the names of all the current saved files
+       with open('saved_games.csv') as myFile:
+           csv_reader = csv.reader(myFile, delimiter=',')
+           for row in csv_reader:
+               print(row[0])
+       print("If you enter one of the file names above you will overwrite the previously saved game with this one. ")
        name = input("Enter name to save game: ")
+
     else:
+        #if more than 10 files are saved then the user will have to choose a file to overwrite
       with open('saved_games.csv') as myFile:
           csv_reader = csv.reader(myFile, delimiter=',')
           for row in csv_reader:
@@ -381,9 +389,14 @@ def save_game(board):
       name = input("Choose file from above to overwrite: ")
 
     user = ""
+    # asks the user who they are playing as to save this in the file (user can choose to save as opponent)
     while user != "M" and user != "R":
         user = input("Which side are you playing (M or R): ").upper()
         user = user.strip()
+
+    """ The code below goes through the old saved_games.csv file and appends all saved games to myNewData list. Files of the same names are skipped
+    and therefore overwritten with the new data. The table headers are skipped too. The result is a list of lists called myNewData
+    containing names, boards and users. This list is later saved as saved_games.csv.  """
 
     myNewData = [["Name", "Board", "Playing as"],[name, board, user]]
     with open('saved_games.csv') as myFile:
@@ -394,23 +407,29 @@ def save_game(board):
             else:
                 myNewData.append(row)
 
+    #writes the new file data created above to a file called saved_games.csv
     with open('saved_games.csv', 'w', newline='') as myFile:
         writer = csv.writer(myFile)
         writer.writerows(myNewData)
 
+        # tells the user where to find their game and exits game
     print("Thanks for playing.")
     print("You can play game " +name+ " later.")
     sys.exit()
 
 def load_game():
     """ Go through the saved games and print the name of each game. Ask the user for
-    the name of the game they want to load and get the board from the file and save it as the board for the game"""
+    the name of the game they want to load and get the board from the file and save it as the board for the game. The user must Enter
+    an existing file name. """
 
+
+    # prints the names of all the saved games
     with open('saved_games.csv') as myFile:
         csv_reader = csv.reader(myFile, delimiter=',')
         for row in csv_reader:
             print(row[0])
 
+    # ensures the user enters an existing file name or else reasks user to enter file name
     while True:
         name = input("Enter name of game you want to load: ")
         with open('saved_games.csv') as myFile:
@@ -425,7 +444,8 @@ def load_game():
             print("You must enter one of the file names above. ")
 
 def start(board, users_side):
-    """Start the users game with the board and side they saved previously"""
+    """ Start the users game with the board and side they have just selected from load_game 
+    or else starts a new game """
     if board != create_board():
         board = set_board(board)
 
