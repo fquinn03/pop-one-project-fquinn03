@@ -451,13 +451,10 @@ def start(board, users_side):
     print_instructions()
     print()
 
-    # if its a saved games loads the saved board
-    if board != create_board():
-        board = set_board(board)
-
     # if it's a new game lets the user choose sides
     if users_side != "M" and users_side != "R":
         users_side = choose_users_side()
+        print_board()
         #reminds the user who they are playing as, prints the board and waits for move
     else:
         print("Welcome back, your are playing as "+users_side)
@@ -469,25 +466,23 @@ def start(board, users_side):
             print_board()
             move_enemy(users_side)
 
-    print_board()
     while True:
         if has_some_legal_move_somewhere('M'):
             board = move_musketeer(users_side)
             print_board()
             if is_enemy_win():
                 print("Cardinal Richleau's men win!")
-                break
+                sys.exit()
         else:
             print("The Musketeers win!")
-            break
+            sys.exit()
 
         if has_some_legal_move_somewhere('R'):
             board = move_enemy(users_side)
             print_board()
         else:
             print("The Musketeers win!")
-            break
-
+            sys.exit()
 
 def play_or_load():
     "Asks the user if they want to start a new game or load a saved game."
@@ -505,4 +500,5 @@ def play_or_load():
 def clear():
     os.system('cls')
 
+clear()
 play_or_load()
