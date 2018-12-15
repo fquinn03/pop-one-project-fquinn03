@@ -356,31 +356,6 @@ def describe_move(who, location, direction):
     print(who, 'moves', direction, 'from',\
           location_to_string(location), 'to',\
           location_to_string(new_location) + ".\n")
-"""
-def start():
-    Plays the Three Musketeers Game.
-    users_side = choose_users_side()
-    board = create_board()
-    print_instructions()
-    print_board()
-    while True:
-        if has_some_legal_move_somewhere('M'):
-            board = move_musketeer(users_side)
-            print_board()
-            if is_enemy_win():
-                print("Cardinal Richleau's men win!")
-                break
-        else:
-            print("The Musketeers win!")
-            break
-
-        if has_some_legal_move_somewhere('R'):
-            board = move_enemy(users_side)
-            print_board()
-        else:
-            print("The Musketeers win!")
-            break
-            """
 
 def save_game(board):
     """Asks the user for their file/user name and playing side and saves this information in a csv file to load later.
@@ -436,22 +411,23 @@ def load_game():
         for row in csv_reader:
             print(row[0])
 
-    name = input("Enter name of game you want to load: ")
-    with open('saved_games.csv') as myFile:
-        csv_reader = csv.reader(myFile, delimiter=',')
-        for row in csv_reader:
-            if name == row[0]:
+    while True:
+        name = input("Enter name of game you want to load: ")
+        with open('saved_games.csv') as myFile:
+            csv_reader = csv.reader(myFile, delimiter=',')
+            for row in csv_reader:
+                if name == row[0]:
                 # eval converts board string which is saved in file back into list of lists which can be printed by print_board()
-                board = eval(row[1])
-                users_side = row[2]
-                start(load_board, users_side)
+                    board = eval(row[1])
+                    users_side = row[2]
+                    start(board, users_side)
+                    return False
+            print("You must enter one of the file names above. ")
 
 def start(board, users_side):
     """Start the users game with the board and side they saved previously"""
     if board != create_board():
         board = set_board(board)
-    else:
-        board = create_board()
 
     if users_side != "M" and users_side != "R":
         users_side = choose_users_side()
