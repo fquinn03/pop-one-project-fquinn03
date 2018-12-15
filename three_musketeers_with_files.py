@@ -1,5 +1,6 @@
-import random
 import csv
+import os
+import random
 import sys
 
 
@@ -444,13 +445,20 @@ def load_game():
             print("You must enter one of the file names above. ")
 
 def start(board, users_side):
-    """ Start the users game with the board and side they have just selected from load_game 
-    or else starts a new game """
+    """ Start the users game with the board and side they have just selected from load_game
+    or else starts a new game. Clears the screen and prints the instructions """
+    clear()
+    print_instructions()
+    print()
+
     if board != create_board():
         board = set_board(board)
 
     if users_side != "M" and users_side != "R":
         users_side = choose_users_side()
+    else:
+        print("Welcome back, your are playing as "+users_side)
+        print()
 
     print_board()
     while True:
@@ -471,6 +479,7 @@ def start(board, users_side):
             print("The Musketeers win!")
             break
 
+
 def play_or_load():
     "Asks the user if they want to start a new game or load a saved game."
     load = ""
@@ -483,5 +492,8 @@ def play_or_load():
             board = create_board()
             users_side = ""
             start(board, users_side)
+
+def clear():
+    os.system('cls')
 
 play_or_load()
