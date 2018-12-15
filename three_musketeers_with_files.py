@@ -390,7 +390,7 @@ def save_game(board):
       name = input("Choose file from above to overwrite: ")
 
     user = ""
-    # asks the user who they are playing as to save this in the file (user can choose to save as opponent)
+    # asks the user who they are playing and saves this in the file (user can choose to save as opponent)
     while user != "M" and user != "R":
         user = input("Which side are you playing (M or R): ").upper()
         user = user.strip()
@@ -451,14 +451,23 @@ def start(board, users_side):
     print_instructions()
     print()
 
+    # if its a saved games loads the saved board
     if board != create_board():
         board = set_board(board)
 
+    # if it's a new game lets the user choose sides
     if users_side != "M" and users_side != "R":
         users_side = choose_users_side()
+        #reminds the user who they are playing as, prints the board and waits for move
     else:
         print("Welcome back, your are playing as "+users_side)
         print()
+        if users_side == "M":
+            print_board()
+            move_musketeer(users_side)
+        else:
+            print_board()
+            move_enemy(users_side)
 
     print_board()
     while True:
