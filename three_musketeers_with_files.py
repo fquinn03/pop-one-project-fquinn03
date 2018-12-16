@@ -360,8 +360,8 @@ def describe_move(who, location, direction):
 
 def save_game(board):
     """Asks the user for their file/user name and playing side and saves this information in a csv file to load later.
-       If player saves game as existing game file, it is over written
-       Maximum number of saved games is 10. """
+       If player saves game as existing game file, it is over written. Maximum number of saved games is 10.
+       Gives the player the option to keep playing or quit after save is performed"""
 
     # count the number of games already saved
     count = 0
@@ -412,10 +412,19 @@ def save_game(board):
         writer = csv.writer(myFile)
         writer.writerows(myNewData)
 
-    # tells the user where to find their game and exits game
-    print("Thanks for playing.")
-    print("You can play game " +name+ " later.")
-    sys.exit()
+    #the code below gives the user the option to quit after saving the game or go back to the board and continue their game
+    keep_playing = input("Would you like to keep playing(P) or Quit now(Q): ").upper()
+    if keep_playing == "Q":
+        # tells the user where to find their game and exits game
+        print("Thanks for playing.")
+        print("You can play game " +name+ " later.")
+        sys.exit()
+    else:
+        # sets the board and user as it was before save and game continues
+        board = myNewData[1][1]
+        user = myNewData[1][2]
+        clear()
+        start(board, user)
 
 def load_game():
     """ Go through the saved games and print the name of each game. Ask the user for
@@ -469,6 +478,7 @@ def start(board, users_side):
             print_board()
 
     while True:
+        # plays the game
         if has_some_legal_move_somewhere('M'):
             board = move_musketeer(users_side)
             print_board()
