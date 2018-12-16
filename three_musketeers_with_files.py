@@ -362,7 +362,7 @@ def save_game(board):
     """Asks the user for their file/user name and playing side and saves this information in a csv file to load later.
        If player saves game as existing game file, it is over written. Maximum number of saved games is 10.
        Gives the player the option to keep playing or quit after save is performed"""
-
+    clear()
     # count the number of games already saved
     count = 0
     with open('saved_games.csv') as myFile:
@@ -474,10 +474,9 @@ def start(board, users_side):
         print("Welcome back, you are playing as "+users_side)
         print()
         print_board()
-        if users_side == "M":
-            board = move_musketeer(users_side)
-            print_board()
-        else:
+
+        # stops computer taking extra move after the game is loaded if player is R
+        if users_side == "R":
             board = move_enemy(users_side)
             print_board()
 
