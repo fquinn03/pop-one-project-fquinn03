@@ -301,9 +301,12 @@ def get_users_move():
     """Gets a legal move from the user, and returns it as a
        (location, direction) tuple."""
     directions = {'L':'left', 'R':'right', 'U':'up', 'D':'down'}
-    move = input("Your move? Or enter Save (S) to save game. ").upper().replace(' ', '')
+    move = input("Enter your move or enter(S) to save game or enter(Q) to quit. ").upper().replace(' ', '')
     if move.upper() == 'S':
         save_game(board)
+    elif move.upper() == "Q":
+        print("Goodbye, thanks for playing. ")
+        sys.exit()
     else:
         if (len(move) >= 3
                 and move[0] in 'ABCDE'
@@ -427,7 +430,7 @@ def save_game(board):
             clear()
             start(board, user)
     else:
-        keep_playing = input("Would you like to keep playing(P) or Quit now(Q): ").upper()
+        keep_playing = input("Would you like to keep playing(P) or Quit(Q) now: ").upper()
 
 
 def load_game():
@@ -435,7 +438,7 @@ def load_game():
     the name of the game they want to load and get the board from the file and save it as the board for the game. The user must Enter
     an existing file name. """
 
-
+    clear()
     # prints the names of all the saved games
     with open('saved_games.csv') as myFile:
         csv_reader = csv.reader(myFile, delimiter=',')
@@ -453,14 +456,13 @@ def load_game():
                     board = eval(row[1])
                     users_side = row[2]
                     start(board, users_side)
-                    return False
             print("You must enter one of the file names above. ")
 
 def start(board, users_side):
     """ Start the users game with the board and side they have just selected from load_game
     or else starts a new game. Clears the screen and prints the instructions """
-    set_board(board)
     clear()
+    set_board(board)
     print_instructions()
     print()
 
