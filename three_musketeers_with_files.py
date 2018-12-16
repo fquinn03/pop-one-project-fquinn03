@@ -413,18 +413,22 @@ def save_game(board):
         writer.writerows(myNewData)
 
     #the code below gives the user the option to quit after saving the game or go back to the board and continue their game
-    keep_playing = input("Would you like to keep playing(P) or Quit now(Q): ").upper()
-    if keep_playing == "Q":
-        # tells the user where to find their game and exits game
-        print("Thanks for playing.")
-        print("You can play game " +name+ " later.")
-        sys.exit()
+    while True:
+        keep_playing = input("Would you like to keep playing(P) or Quit now(Q): ")
+        if keep_playing.upper() == "Q":
+            # tells the user where to find their game and exits game
+            print("Thanks for playing.")
+            print("You can play game " +name+ " later.")
+            sys.exit()
+        elif keep_playing.upper() == 'P':
+            # sets the board and user as it was before save and game continues
+            board = myNewData[1][1]
+            user = myNewData[1][2]
+            clear()
+            start(board, user)
     else:
-        # sets the board and user as it was before save and game continues
-        board = myNewData[1][1]
-        user = myNewData[1][2]
-        clear()
-        start(board, user)
+        keep_playing = input("Would you like to keep playing(P) or Quit now(Q): ").upper()
+
 
 def load_game():
     """ Go through the saved games and print the name of each game. Ask the user for
@@ -515,6 +519,6 @@ def clear():
     if os.name == 'nt':
         os.system('cls')
     else:
-        os.system('Clear')
+        os.system('clear')
 
 play_or_load()
