@@ -367,18 +367,17 @@ def save_game(board):
     count = 0
     with open('saved_games.csv') as myFile:
         csv_reader = csv.reader(myFile, delimiter=',')
-        """Checks to see how many games have been saved. """
         for row in csv_reader:
             count +=1
 
-    #Count <=11 allows 10 games plus table headers to be saved.
+    # If count <=11 allows 10 games plus table headers to be saved.
     if count <11:
-        #prints the names of all the current saved files
+        #prints the names of all the current saved files so user will not overwrite in error
        with open('saved_games.csv') as myFile:
            csv_reader = csv.reader(myFile, delimiter=',')
            for row in csv_reader:
                print(row[0])
-       print("If you enter one of the file names above you will overwrite the previously saved game with this one. ")
+       print("Enter one of the file names above to overwrite the previously saved game with this one, or enter a new file name. ")
        name = input("Enter name to save game: ")
 
     else:
@@ -395,9 +394,9 @@ def save_game(board):
         user = input("Which side are you playing (M or R): ").upper()
         user = user.strip()
 
-    """ The code below goes through the old saved_games.csv file and appends all saved games to myNewData list. Files of the same names are skipped
-    and therefore overwritten with the new data. The table headers are skipped too. The result is a list of lists called myNewData
-    containing names, boards and users. This list is later saved as saved_games.csv.  """
+    #The code below goes through the current saved_games.csv file and appends all saved games to myNewData list. Files of the same names are skipped
+    #and therefore overwritten with the new data. The table headers are skipped too. The result is a list of lists called myNewData
+    #containing names, boards and users. This list is later written to file as saved_games.csv.
 
     myNewData = [["Name", "Board", "Playing as"],[name, board, user]]
     with open('saved_games.csv') as myFile:
@@ -413,7 +412,7 @@ def save_game(board):
         writer = csv.writer(myFile)
         writer.writerows(myNewData)
 
-        # tells the user where to find their game and exits game
+    # tells the user where to find their game and exits game
     print("Thanks for playing.")
     print("You can play game " +name+ " later.")
     sys.exit()
@@ -445,9 +444,9 @@ def load_game():
             print("You must enter one of the file names above. ")
 
 def start(board, users_side):
-    board = set_board(board)
     """ Start the users game with the board and side they have just selected from load_game
     or else starts a new game. Clears the screen and prints the instructions """
+    set_board(board)
     clear()
     print_instructions()
     print()
@@ -456,16 +455,17 @@ def start(board, users_side):
     if users_side != "M" and users_side != "R":
         users_side = choose_users_side()
         print_board()
-        #reminds the user who they are playing as, prints the board and waits for move
+
     else:
-        print("Welcome back, your are playing as "+users_side)
+        #reminds the user who they are playing as, prints the board and waits for move
+        print("Welcome back, you are playing as "+users_side)
         print()
         print_board()
         if users_side == "M":
-            move_musketeer(users_side)
+            board = move_musketeer(users_side)
             print_board()
         else:
-            move_enemy(users_side)
+            board = move_enemy(users_side)
             print_board()
 
     while True:
@@ -488,6 +488,7 @@ def start(board, users_side):
 
 def play_or_load():
     "Asks the user if they want to start a new game or load a saved game."
+    clear()
     load = ""
     while load  != 'L' or load != 'N':
         load= input("Do you want to play a new game (N) or load a saved game (L): ")
@@ -495,12 +496,15 @@ def play_or_load():
         if load == 'L':
             load_game()
         if load == 'N':
-            board = create_board()
+            create_board()
             users_side = ""
             start(board, users_side)
 
 def clear():
-    os.system('cls')
+    """Clears the screen"""
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('Clear')
 
-clear()
 play_or_load()
