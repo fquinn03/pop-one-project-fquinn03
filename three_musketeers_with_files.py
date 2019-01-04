@@ -152,7 +152,6 @@ def is_legal_move(location, direction):
 
 def can_move_piece_at(location):
     """Tests whether the player at the location has at least one move available.
-    You can assume that input will always be in correct range.
     You can assume that input will always be in correct range."""
     directions = ["up","down","left","right"]
     for i in range(len(directions)):
@@ -205,7 +204,6 @@ def is_within_board(location, direction):
 def all_possible_moves_for(player):
     """Returns every possible move for the player ('M' or 'R') as a list
      (location, direction) tuples. You can assume that input will always be in correct range.
-
      Checks all locations, if the location matches the player, checks each move in all_possible_moves
      and if the move is legal, adds it to a list which moves can be chosen from"""
     all_possible_moves = []
@@ -299,7 +297,9 @@ def choose_users_side():
 
 def get_users_move():
     """Gets a legal move from the user, and returns it as a
-       (location, direction) tuple."""
+       (location, direction) tuple.
+       The user can also enter S to save a game or Q to quit"""
+       
     directions = {'L':'left', 'R':'right', 'U':'up', 'D':'down'}
     move = input("Enter your move or enter(S) to save game or enter(Q) to quit. ").upper().replace(' ', '')
     if move.upper() == 'S':
@@ -363,7 +363,8 @@ def describe_move(who, location, direction):
 
 def save_game(board):
     """Asks the user for their file/user name and playing side and saves this information in a csv file to load later.
-       If player saves game as existing game file, it is over written. Maximum number of saved games is 10.
+       If player saves game as existing game file, it is over written. Maximum number of saved games is 10, I have limited the number
+       to avoid an infinite number of games being saved.
        Gives the player the option to keep playing or quit after save is performed"""
     clear()
     # count the number of games already saved
@@ -451,8 +452,8 @@ def load_game():
         with open('saved_games.csv') as myFile:
             csv_reader = csv.reader(myFile, delimiter=',')
             for row in csv_reader:
-                # eval converts board string which is saved in file back into list of lists which can be printed by print_board()
                 if name == row[0]:
+                    # eval converts board string which is saved in file back into list of lists which can be printed by print_board()
                     board = eval(row[1])
                     users_side = row[2]
                     start(board, users_side)
