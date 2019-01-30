@@ -1,0 +1,26 @@
+Total coursework mark:19.9  (out of 20)
+
+Exercise sheets mark:  10  (out of 10)
+
+Project mark:  9.9  (out of 10)
+
+Project feedback and mark details
+
+Correctness and adherence to specification: 30%  (out of 30%)
+
+The program is correct and adheres to the specification. Good work!
+
+Completeness of code, tests, and commit history: 30%    (out of 30%)   
+
+Tests pass, coverage adequate for this scope.
+
+Coding style:10%   (out of 10%) 
+Style is OK… See comments on extension for a not on the style in three_musketeers_with_files.
+
+Extension:29%    (out of 30%) 
+
+At the end invoking play_or_load() will break tests for this module as it will require input from the user. You should wrap calls like this in something like
+If __name__ == “__main__”:
+    play_or_load()
+
+This makes sure that play_or_load() is called only if this module is being executed on the main thread. It is not executed if the file is being imported as a module.
